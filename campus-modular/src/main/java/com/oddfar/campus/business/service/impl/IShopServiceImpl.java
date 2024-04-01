@@ -81,7 +81,6 @@ public class IShopServiceImpl extends ServiceImpl<IShopMapper, IShop> implements
         for (String iShopId : shopIdSet) {
             JSONObject shop = jsonObject.getJSONObject(iShopId);
             IShop iShop = new IShop(iShopId, shop);
-//            iShopMapper.insert(iShop);
             list.add(iShop);
         }
         //清空数据库
