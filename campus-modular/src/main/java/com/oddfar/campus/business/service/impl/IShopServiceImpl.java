@@ -72,12 +72,9 @@ public class IShopServiceImpl extends ServiceImpl<IShopMapper, IShop> implements
         JSONObject body = JSONObject.parseObject(request.execute().body());
         //获取shop的url
         String shopUrl = body.getJSONObject("data").getJSONObject("mtshops_pc").getString("url");
-        //清空数据库
-        iShopMapper.truncateShop();
-        redisCache.deleteObject("mt_shop_list");
-
         String s = HttpUtil.get(shopUrl);
-
+        logger.info("s.length:{}", s.length());
+        logger.info("s.last:{}", s.substring(s.length() - 10, s.length() - 1));
         JSONObject jsonObject = JSONObject.parseObject(s);
         Set<String> shopIdSet = jsonObject.keySet();
         List<IShop> list = new ArrayList<>();
@@ -87,7 +84,11 @@ public class IShopServiceImpl extends ServiceImpl<IShopMapper, IShop> implements
 //            iShopMapper.insert(iShop);
             list.add(iShop);
         }
+        //清空数据库
+        iShopMapper.truncateShop();
         this.saveBatch(list);
+
+        redisCache.deleteObject("mt_shop_list");
         redisCache.setCacheList("mt_shop_list", list);
     }
 

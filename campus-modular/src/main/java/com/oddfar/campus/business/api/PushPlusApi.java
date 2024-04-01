@@ -62,4 +62,16 @@ public class PushPlusApi {
         };
     }
 
+    public static void sendNoticeNow(String token, String title, String content, String template) {
+        String url = "http://www.pushplus.plus/send";
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("title", title);
+        map.put("content", content);
+        if (StringUtils.isEmpty(template)) {
+            map.put("template", "html");
+        }
+        HttpUtil.post(url, map);
+    }
+
 }
