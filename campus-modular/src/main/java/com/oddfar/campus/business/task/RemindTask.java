@@ -1,6 +1,7 @@
 package com.oddfar.campus.business.task;
 
-import com.oddfar.campus.business.api.PushPlusApi;
+import cn.hutool.core.date.DateUtil;
+import com.oddfar.campus.business.api.FeishuMessageApi;
 import com.oddfar.campus.business.entity.IUser;
 import com.oddfar.campus.business.service.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class RemindTask {
      */
     @Async
     @Scheduled(cron = "0 0 10 ? * * ")
+//    @Scheduled(cron = "0 0/10 * * * ? ")
     public void checkToken() {
         logger.info("【检测token过期任务】定时任务开始");
         List<IUser> iUsers = iUserService.selectReservationUser();
@@ -38,9 +40,13 @@ public class RemindTask {
         if (null != user) {
             if (user.getExpireTime().getTime() - System.currentTimeMillis() < 1000 * 60 * 60 * 24 * 5) {
                 logger.info("【检测token过期任务】token快过期了，尽快更换");
+                /*
                 //异常推送，写死token
                 String token = "51270455f0de428d9f320ec1856713c1";
                 PushPlusApi.sendNoticeNow(token, "i茅台token快过期了", "i茅台token快过期了，尽快更换", "txt");
+                */
+                String expireTime = DateUtil.formatDate(user.getExpireTime());
+                FeishuMessageApi.sendMessage("i茅台token快过期了，过期时间：" + expireTime + "，尽快更换");
             }
         }
         logger.info("【检测token过期任务】定时任务结束");

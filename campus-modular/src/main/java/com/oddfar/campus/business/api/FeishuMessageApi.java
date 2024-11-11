@@ -7,13 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FeishuMessageApi {
-    private final static String BOT_TOKEN = "bb251f8d-cb6b-4fbf-aa68-d38ba7062fd1";
+    private final static String BOT_TOKEN = "1ab201d5-7430-4098-9d5b-8185795778c3";
+
 
     public static void sendMessage(String message) {
         try {
             String url = "https://open.feishu.cn/open-apis/bot/v2/hook/" + BOT_TOKEN;
             JSONObject content = new JSONObject();
-            content.put("text", "【异常啦】" + message);
+            content.put("text", "【提醒】" + message);
             JSONObject params = new JSONObject();
             params.put("msg_type", "text");
             params.put("content", content);
@@ -24,12 +25,13 @@ public class FeishuMessageApi {
     }
 
     public static void main(String[] args) {
-        String message = "test";
-        JSONObject content = new JSONObject();
-        content.put("text", "【异常啦】" + message);
-        JSONObject params = new JSONObject();
-        params.put("msg_type", "text");
-        params.put("content", content);
-        System.out.println(JSONUtil.toJsonStr(params));
+//        String message = "test";
+//        JSONObject content = new JSONObject();
+//        content.put("text", "【提醒】" + message);
+//        JSONObject params = new JSONObject();
+//        params.put("msg_type", "text");
+//        params.put("content", content);
+//        System.out.println(JSONUtil.toJsonStr(params));
+        sendMessage("test");
     }
 }
