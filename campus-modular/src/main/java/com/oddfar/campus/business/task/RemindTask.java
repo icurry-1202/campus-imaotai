@@ -2,6 +2,7 @@ package com.oddfar.campus.business.task;
 
 import cn.hutool.core.date.DateUtil;
 import com.oddfar.campus.business.api.FeishuMessageApi;
+import com.oddfar.campus.business.api.PushPlusApi;
 import com.oddfar.campus.business.entity.IUser;
 import com.oddfar.campus.business.service.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,9 @@ public class RemindTask {
                 PushPlusApi.sendNoticeNow(token, "i茅台token快过期了", "i茅台token快过期了，尽快更换", "txt");
                 */
                 String expireTime = DateUtil.formatDate(user.getExpireTime());
-                FeishuMessageApi.sendMessage("i茅台token快过期了，过期时间：" + expireTime + "，尽快更换");
+
+                PushPlusApi.sendNoticeNow("f0b46f76968f4762b88b33fca954a129", "提醒", "i茅台token快过期了，过期时间：" + expireTime + "，尽快更换", "");
+//                FeishuMessageApi.sendMessage("i茅台token快过期了，过期时间：" + expireTime + "，尽快更换");
             }
         }
         logger.info("【检测token过期任务】定时任务结束");

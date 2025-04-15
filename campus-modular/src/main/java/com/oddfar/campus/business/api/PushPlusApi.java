@@ -74,4 +74,7 @@ public class PushPlusApi {
         HttpUtil.post(url, map);
     }
 
+    public static void main(String[] args) {
+        PushPlusApi.sendNoticeNow("f0b46f76968f4762b88b33fca954a129", "提醒", "i茅台token快过期了，过期时间：expireTime，尽快更换", "");
+    }
 }

@@ -23,15 +23,4 @@ public class FeishuMessageApi {
             log.error(e.getMessage(), e);
         }
     }
-
-    public static void main(String[] args) {
-//        String message = "test";
-//        JSONObject content = new JSONObject();
-//        content.put("text", "【提醒】" + message);
-//        JSONObject params = new JSONObject();
-//        params.put("msg_type", "text");
-//        params.put("content", content);
-//        System.out.println(JSONUtil.toJsonStr(params));
-        sendMessage("test");
-    }
 }
